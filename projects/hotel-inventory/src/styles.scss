@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '/home/rocketjet/projects/hotel-inventory/node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+body {
+  margin: 15px;
+}
+
+.even {
+  background-color: steelblue;
+  color: white;
+}
+
+.odd {
+  background-color: tomato;
+  color: white;
+}
