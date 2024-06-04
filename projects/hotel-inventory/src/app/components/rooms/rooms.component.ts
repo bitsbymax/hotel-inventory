@@ -19,7 +19,12 @@ import { BookButtonComponent } from '../book-button/book-button.component';
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [CommonModule, RoomsListComponent, HeaderComponent, BookButtonComponent],
+  imports: [
+    CommonModule,
+    RoomsListComponent,
+    HeaderComponent,
+    BookButtonComponent,
+  ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +33,7 @@ export class RoomsComponent
   implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked
 {
   @ViewChild(HeaderComponent, { static: true }) header!: HeaderComponent;
-  @ViewChild('bookRoom', { read: ViewContainerRef}) vcr!: ViewContainerRef;
+  @ViewChild('bookRoom', { read: ViewContainerRef }) vcr!: ViewContainerRef;
 
   hotelName: string = 'Hilton';
   numberOfRooms: number = 10;
@@ -42,6 +47,7 @@ export class RoomsComponent
   selectedRoom = {} as RoomList;
   title = 'Room List';
   objectKeys = Object.keys;
+
   constructor() {
     console.log('constructor in RoomsComponent fired');
   }
@@ -90,7 +96,7 @@ export class RoomsComponent
         rating: 3,
       },
     ];
-    this.header.title = 'Hotel inventory';// - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
+    this.header.title = 'Hotel inventory'; // - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
   }
 
   ngOnChanges(changes: SimpleChanges): void {
