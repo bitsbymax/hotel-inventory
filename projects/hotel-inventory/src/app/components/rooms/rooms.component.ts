@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
@@ -7,24 +8,27 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { Room, RoomList } from '../../interfaces/room.interface';
 import { CommonModule } from '@angular/common';
 import { RoomsListComponent } from '../rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
+import { BookButtonComponent } from '../book-button/book-button.component';
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [CommonModule, RoomsListComponent, HeaderComponent],
+  imports: [CommonModule, RoomsListComponent, HeaderComponent, BookButtonComponent],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomsComponent
-  implements OnInit, OnChanges, DoCheck, AfterViewInit
+  implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked
 {
-  @ViewChild(HeaderComponent) header!: HeaderComponent;
+  @ViewChild(HeaderComponent, { static: true }) header!: HeaderComponent;
+  @ViewChild('bookRoom', { read: ViewContainerRef}) vcr!: ViewContainerRef;
 
   hotelName: string = 'Hilton';
   numberOfRooms: number = 10;
@@ -86,6 +90,7 @@ export class RoomsComponent
         rating: 3,
       },
     ];
+    this.header.title = 'Hotel inventory';//  - ми можемо змінити значення властивості title в компоненті HeaderComponent всередині ngOnInit лише якщо вказано { static: true }.
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -99,7 +104,13 @@ export class RoomsComponent
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit in RoomsComponent fired');
     console.log(this.header);
-    this.header.title = 'Hotel inventory';
+    // this.header.title = 'Hotel inventory';// - тут це значення зміниться лише на наступному циклі change детектора
+    const componentRef = this.vcr.createComponent(BookButtonComponent);
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked in RoomsComponent fired');
+    // this.header.title = 'Hotel inventory'; //- тут це значення зміниться лише на наступному циклі change детектора
   }
 
   selectRoom(room: RoomList) {

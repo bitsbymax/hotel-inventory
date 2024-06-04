@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   DoCheck,
@@ -15,7 +16,7 @@ import {
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent
-  implements OnInit, OnChanges, DoCheck, AfterViewInit
+  implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked
 {
   title: string = '';
 
@@ -37,5 +38,9 @@ export class HeaderComponent
 
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit in HeaderComponent fired');
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked in HeaderComponent fired');
   }
 }

@@ -10,6 +10,7 @@
     }"
     [innerText]="numberOfRooms"
   ></div>
+
   <p>Available rooms</p>
   {{ rooms.availableRooms ?? "No rooms available" }}
 
@@ -18,8 +19,14 @@
   }
 
   <div>
-    <button (click)="addRoom()">Add Room</button>
+    <button (click)="addRoom()" [ngStyle]="{ marginBottom: '10px' }">
+      Add Room
+    </button>
   </div>
+
+  <button (click)="toggle()">
+    {{ !hideRooms ? "Hide rooms" : "Show rooms" }}
+  </button>
 
   @if (rooms.availableRooms) {
   <app-rooms-list
@@ -30,4 +37,4 @@
   }
 </div>
 
-<button (click)="toggle()">{{ !hideRooms ? 'Hide rooms' : 'Show rooms' }}</button>
+<ng-template #bookRoom></ng-template>

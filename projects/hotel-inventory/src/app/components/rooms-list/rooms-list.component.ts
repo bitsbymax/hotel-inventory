@@ -10,6 +10,7 @@ import {
   SimpleChanges,
   DoCheck,
   AfterViewInit,
+  AfterViewChecked,
 } from '@angular/core';
 import { RoomList } from '../../interfaces/room.interface';
 
@@ -21,7 +22,7 @@ import { RoomList } from '../../interfaces/room.interface';
   styleUrl: './rooms-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomsListComponent implements OnInit, OnChanges, DoCheck, AfterViewInit {
+export class RoomsListComponent implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked {
   @Input() rooms: RoomList[] = [];
   @Input() title: string = '';
   @Output() selectedRoom = new EventEmitter<RoomList>();
@@ -51,6 +52,10 @@ export class RoomsListComponent implements OnInit, OnChanges, DoCheck, AfterView
 
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit in RoomsListComponent fired');
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked in RoomsListComponent fired');
   }
 
   selectRoom(room: RoomList) {
