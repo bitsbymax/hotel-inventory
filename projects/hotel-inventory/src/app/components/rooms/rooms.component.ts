@@ -90,7 +90,7 @@ export class RoomsComponent
         rating: 3,
       },
     ];
-    this.header.title = 'Hotel inventory';//  - ми можемо змінити значення властивості title в компоненті HeaderComponent всередині ngOnInit лише якщо вказано { static: true }.
+    this.header.title = 'Hotel inventory';// - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -106,10 +106,12 @@ export class RoomsComponent
     console.log(this.header);
     // this.header.title = 'Hotel inventory';// - тут це значення зміниться лише на наступному циклі change детектора
     const componentRef = this.vcr.createComponent(BookButtonComponent);
+    console.log();
   }
 
   ngAfterViewChecked(): void {
     console.log('ngAfterViewChecked in RoomsComponent fired');
+    console.log(this.header);
     // this.header.title = 'Hotel inventory'; //- тут це значення зміниться лише на наступному циклі change детектора
   }
 
