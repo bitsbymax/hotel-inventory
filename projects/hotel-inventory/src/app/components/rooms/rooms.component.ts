@@ -112,7 +112,7 @@ export class RoomsComponent
     console.log(this.header);
     // this.header.title = 'Hotel inventory';// - тут це значення зміниться лише на наступному циклі change детектора
     const componentRef = this.vcr.createComponent(BookButtonComponent);
-    console.log();
+    componentRef.instance.buttonLabel = 'Book new room';
   }
 
   ngAfterViewChecked(): void {
