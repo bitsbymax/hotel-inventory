@@ -1,5 +1,9 @@
 <h1>Welcome to the {{ hotelName }}</h1>
+<p #description></p>
+
 <app-header></app-header>
+<app-header></app-header>
+
 <div [hidden]="hideRooms">
   <p>Number of rooms:</p>
   <div
@@ -24,14 +28,12 @@
     </button>
   </div>
 
-  @if (rooms.availableRooms) {
   <app-rooms-list
+    *ngIf="rooms.availableRooms"
     [rooms]="roomList"
     [title]="title"
     (selectedRoom)="selectRoom($event)"
-  ></app-rooms-list>
-  }
-
+  />
 </div>
 <button (click)="toggle()">
   {{ !hideRooms ? "Hide rooms" : "Show rooms" }}

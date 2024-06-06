@@ -2,12 +2,16 @@ import {
   AfterViewChecked,
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DoCheck,
+  ElementRef,
   OnChanges,
   OnInit,
+  QueryList,
   SimpleChanges,
   ViewChild,
+  ViewChildren,
   ViewContainerRef,
 } from '@angular/core';
 import { Room, RoomList } from '../../interfaces/room.interface';
@@ -15,6 +19,7 @@ import { CommonModule } from '@angular/common';
 import { RoomsListComponent } from '../rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { BookButtonComponent } from '../book-button/book-button.component';
+import { RouteConfigLoadEnd } from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
@@ -34,8 +39,10 @@ export class RoomsComponent
 {
   @ViewChild(HeaderComponent, { static: true }) header!: HeaderComponent;
   @ViewChild('bookRoom', { read: ViewContainerRef }) vcr!: ViewContainerRef;
+  @ViewChild('description', { static: true }) description!: ElementRef;
+  @ViewChildren(HeaderComponent) headerChildren!: QueryList<HeaderComponent>;
 
-  hotelName: string = 'Hilton';
+  hotelName: string = 'Urban Hotel';
   numberOfRooms: number = 10;
   hideRooms: boolean = false;
   rooms: Room = {
@@ -48,7 +55,7 @@ export class RoomsComponent
   title = 'Room List';
   objectKeys = Object.keys;
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     console.log('constructor in RoomsComponent fired');
   }
 
@@ -97,6 +104,7 @@ export class RoomsComponent
       },
     ];
     this.header.title = 'Hotel inventory'; // - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
+    this.description.nativeElement.innerText = 'Our goal is to provide best service';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -109,15 +117,17 @@ export class RoomsComponent
 
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit in RoomsComponent fired');
-    console.log(this.header);
+    // console.log(this.header);
     // this.header.title = 'Hotel inventory';// - тут це значення зміниться лише на наступному циклі change детектора
     const componentRef = this.vcr.createComponent(BookButtonComponent);
     componentRef.instance.buttonLabel = 'Book new room';
+    this.headerChildren.last.title = 'Hotel inventory 2';
+    this.cdr.detectChanges();
   }
 
   ngAfterViewChecked(): void {
     console.log('ngAfterViewChecked in RoomsComponent fired');
-    console.log(this.header);
+    // console.log(this.header);
     // this.header.title = 'Hotel inventory'; //- тут це значення зміниться лише на наступному циклі change детектора
   }
 
