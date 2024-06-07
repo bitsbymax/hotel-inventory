@@ -16,7 +16,7 @@
     @for (room of rooms | slice : 0 : rooms.length; track room.roomNumber; let i
     = $index, even = $even, odd = $odd) {
     <tr [ngClass]="even ? 'even' : 'odd'">
-      <td>{{ i }}</td>
+      <ng-container *ngTemplateOutlet="td; context: { i }"></ng-container>
       <td>{{ room.roomNumber }}</td>
       <td>{{ room.roomType }}</td>
       <td>{{ room.amenities | lowercase }}</td>
@@ -34,3 +34,7 @@
     }
   </table>
 </div>
+
+<ng-template #td let-index="i">
+  <td>{{ index }}</td>
+</ng-template>

@@ -8,9 +8,16 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterOutlet, RoomsComponent, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'hotel-inventory';
   role: string = 'Admin';
+
+  totalCustomers = 10;
+  ctx = { count: this.totalCustomers };
+
+  data = {
+    screen: true,
+    label: 'Mobile'
+  }
 }

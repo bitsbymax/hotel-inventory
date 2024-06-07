@@ -1,6 +1,6 @@
 <h3>App component</h3>
 
-<div [ngSwitch]="role">
+<div [ngSwitch]="role" [ngStyle]="{ backgroundColor: 'lightblue' }">
   <p *ngSwitchCase="'User'">Welcome User</p>
   <div *ngSwitchCase="'Admin'">
     <p [ngStyle]="{ color: 'darkgreen' }">Welcome Admin</p>
@@ -8,3 +8,26 @@
   </div>
   <p *ngSwitchDefault [ngStyle]="{ color: 'red' }">Not logged in</p>
 </div>
+
+<ng-template #countTemplate let-customerCount="count">
+  <div>Approximately {{ customerCount }} customers on the page...</div>
+</ng-template>
+<ng-container *ngTemplateOutlet="countTemplate; context: ctx">
+</ng-container>
+
+<ng-template
+  #t
+  [ngTemplateOutlet]="t"
+  [ngTemplateOutletContext]="{
+    defaultScreen: data.screen,
+    label: data.label
+  }"
+  let-defaultScreen="defaultScreen"
+  let-label="label"
+>
+  <div>default screen: {{ defaultScreen }} - label: {{ label }}</div>
+</ng-template>
+
+<ng-template>
+  <div>Testing {{ data.label }}</div>
+</ng-template>
