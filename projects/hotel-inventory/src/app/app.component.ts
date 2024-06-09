@@ -12,6 +12,7 @@ import { EmployeeComponent } from './components/employee/employee.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  hotelName: string = 'Urban Hotel';
   role: string = 'Admin';
 
   totalCustomers = 10;

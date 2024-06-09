@@ -1,4 +1,5 @@
 import {
+  AfterContentChecked,
   AfterContentInit,
   AfterViewChecked,
   AfterViewInit,
@@ -8,6 +9,7 @@ import {
   ContentChildren,
   DoCheck,
   ElementRef,
+  Input,
   OnChanges,
   OnInit,
   QueryList,
@@ -37,8 +39,17 @@ import { EmployeeComponent } from '../employee/employee.component';
   styleUrl: './rooms.component.scss',
 })
 export class RoomsComponent
-  implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked, AfterContentInit
+  implements
+    OnInit,
+    OnChanges,
+    DoCheck,
+    AfterViewInit,
+    AfterViewChecked,
+    AfterContentInit,
+    AfterContentChecked
 {
+  @Input('hotelName') hotelName: string = '';
+
   @ViewChild(HeaderComponent, { static: true }) header!: HeaderComponent;
   @ViewChild('bookRoom', { read: ViewContainerRef }) vcr!: ViewContainerRef;
   @ViewChild('description', { static: true }) description!: ElementRef;
@@ -46,7 +57,6 @@ export class RoomsComponent
 
   @ContentChild(EmployeeComponent) employee!: EmployeeComponent;
 
-  hotelName: string = 'Urban Hotel';
   numberOfRooms: number = 10;
   hideRooms: boolean = false;
   rooms: Room = {
@@ -110,7 +120,8 @@ export class RoomsComponent
       },
     ];
     this.header.title = 'Hotel inventory'; // - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
-    this.description.nativeElement.innerText = 'Our goal is to provide best service';
+    this.description.nativeElement.innerText =
+      'Our goal is to provide best service';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -140,7 +151,11 @@ export class RoomsComponent
   ngAfterContentInit(): void {
     console.log('ngAfterContentInit in RoomsComponent fired');
     this.employee.empName = 'Rick';
-    this.empName = this.employee.employeeName;;
+    this.empName = this.employee.employeeName;
+  }
+
+  ngAfterContentChecked(): void {
+    console.log('ngAfterContentChecked in RoomsComponent fired');
   }
   selectRoom(room: RoomList) {
     this.selectedRoom = room;
