@@ -11,6 +11,9 @@ import {
   DoCheck,
   AfterViewInit,
   AfterViewChecked,
+  AfterContentInit,
+  AfterContentChecked,
+  OnDestroy,
 } from '@angular/core';
 import { RoomList } from '../../interfaces/room.interface';
 
@@ -22,7 +25,17 @@ import { RoomList } from '../../interfaces/room.interface';
   styleUrl: './rooms-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomsListComponent implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked {
+export class RoomsListComponent
+  implements
+    OnInit,
+    OnChanges,
+    DoCheck,
+    AfterViewInit,
+    AfterViewChecked,
+    AfterContentInit,
+    AfterContentChecked,
+    OnDestroy
+{
   @Input() rooms: RoomList[] = [];
   @Input() title: string = '';
   @Output() selectedRoom = new EventEmitter<RoomList>();
@@ -58,6 +71,17 @@ export class RoomsListComponent implements OnInit, OnChanges, DoCheck, AfterView
     console.log('ngAfterViewChecked in RoomsListComponent fired');
   }
 
+  ngAfterContentInit(): void {
+    console.log('ngAfterContentInit in RoomsListComponent fired');
+  }
+
+  ngAfterContentChecked(): void {
+    console.log('ngAfterContentChecked in RoomsListComponent fired');
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy in RoomsListComponent fired');
+  }
   selectRoom(room: RoomList) {
     this.selectedRoom.emit(room);
   }

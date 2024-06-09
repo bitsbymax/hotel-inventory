@@ -4,43 +4,42 @@
 <app-header></app-header>
 <app-header></app-header>
 
-<div [hidden]="hideRooms">
-  <p>Number of rooms:</p>
-  <div
-    [ngStyle]="{
-      color: rooms.availableRooms ? 'lightgreen' : 'red',
-      fontSize: '20px',
-      fontWeight: 'bold'
-    }"
-    [innerText]="numberOfRooms"
-  ></div>
+<p>Number of rooms:</p>
+<div
+  [ngStyle]="{
+    color: rooms.availableRooms ? 'lightgreen' : 'red',
+    fontSize: '20px',
+    fontWeight: 'bold'
+  }"
+  [innerText]="numberOfRooms"
+></div>
 
-  <p>Available rooms</p>
-  {{ rooms.availableRooms ?? "No rooms available" }}
+<p>Available rooms</p>
+{{ rooms.availableRooms ?? "No rooms available" }}
 
-  @if (objectKeys(selectedRoom).length > 0) {
-  <div>{{ selectedRoom | json }}</div>
-  }
+@if (objectKeys(selectedRoom).length > 0) {
+<div>{{ selectedRoom | json }}</div>
+}
 
-  <div>
-    <button (click)="addRoom()" [ngStyle]="{ marginBottom: '10px' }">
-      Add Room
-    </button>
-  </div>
-
-  <!-- ng-content using example -->
-  <ng-content></ng-content>
-  <ng-content select="app-employee"></ng-content>
-
-  <p>Contact {{ empName }}</p>
-
-  <app-rooms-list
-    *ngIf="rooms.availableRooms"
-    [rooms]="roomList"
-    [title]="title"
-    (selectedRoom)="selectRoom($event)"
-  />
+<div>
+  <button (click)="addRoom()" [ngStyle]="{ marginBottom: '10px' }">
+    Add Room
+  </button>
 </div>
+
+<!-- ng-content using example -->
+<ng-content select="[data]"></ng-content>
+<ng-content select="app-employee"></ng-content>
+
+<p>Contact {{ empName }}</p>
+
+<app-rooms-list
+  *ngIf="!hideRooms"
+  [rooms]="roomList"
+  [title]="title"
+  (selectedRoom)="selectRoom($event)"
+/>
+
 <button (click)="toggle()">
   {{ !hideRooms ? "Hide rooms" : "Show rooms" }}
 </button>

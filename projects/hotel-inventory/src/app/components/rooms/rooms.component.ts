@@ -11,6 +11,7 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   QueryList,
   SimpleChanges,
@@ -46,7 +47,8 @@ export class RoomsComponent
     AfterViewInit,
     AfterViewChecked,
     AfterContentInit,
-    AfterContentChecked
+    AfterContentChecked,
+    OnDestroy
 {
   @Input('hotelName') hotelName: string = '';
 
@@ -156,6 +158,10 @@ export class RoomsComponent
 
   ngAfterContentChecked(): void {
     console.log('ngAfterContentChecked in RoomsComponent fired');
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy in RoomsComponent fired');
   }
   selectRoom(room: RoomList) {
     this.selectedRoom = room;
