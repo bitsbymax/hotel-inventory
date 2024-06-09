@@ -28,6 +28,12 @@
     </button>
   </div>
 
+  <!-- ng-content using example -->
+  <ng-content></ng-content>
+  <ng-content select="app-employee"></ng-content>
+
+  <p>Contact {{ empName }}</p>
+
   <app-rooms-list
     *ngIf="rooms.availableRooms"
     [rooms]="roomList"

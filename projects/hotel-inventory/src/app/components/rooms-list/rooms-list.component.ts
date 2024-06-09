@@ -36,7 +36,7 @@ export class RoomsListComponent implements OnInit, OnChanges, DoCheck, AfterView
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges in RoomsListComponent', changes);
+    console.log('ngOnChanges in RoomsListComponent fired');
     if (changes['title']) {
       this.title = changes['title'].currentValue.toUpperCase();
     }

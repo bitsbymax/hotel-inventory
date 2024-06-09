@@ -1,9 +1,11 @@
 import {
+  AfterContentInit,
   AfterViewChecked,
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
+  ContentChildren,
   DoCheck,
   ElementRef,
   OnChanges,
@@ -19,7 +21,7 @@ import { CommonModule } from '@angular/common';
 import { RoomsListComponent } from '../rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { BookButtonComponent } from '../book-button/book-button.component';
-import { RouteConfigLoadEnd } from '@angular/router';
+import { EmployeeComponent } from '../employee/employee.component';
 
 @Component({
   selector: 'app-rooms',
@@ -29,18 +31,20 @@ import { RouteConfigLoadEnd } from '@angular/router';
     RoomsListComponent,
     HeaderComponent,
     BookButtonComponent,
+    EmployeeComponent,
   ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomsComponent
-  implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked
+  implements OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked, AfterContentInit
 {
   @ViewChild(HeaderComponent, { static: true }) header!: HeaderComponent;
   @ViewChild('bookRoom', { read: ViewContainerRef }) vcr!: ViewContainerRef;
   @ViewChild('description', { static: true }) description!: ElementRef;
   @ViewChildren(HeaderComponent) headerChildren!: QueryList<HeaderComponent>;
+
+  @ContentChild(EmployeeComponent) employee!: EmployeeComponent;
 
   hotelName: string = 'Urban Hotel';
   numberOfRooms: number = 10;
@@ -53,6 +57,8 @@ export class RoomsComponent
   roomList: RoomList[] = [];
   selectedRoom = {} as RoomList;
   title = 'Room List';
+  empName: string = '';
+
   objectKeys = Object.keys;
 
   constructor(private cdr: ChangeDetectorRef) {
@@ -121,7 +127,7 @@ export class RoomsComponent
     // this.header.title = 'Hotel inventory';// - тут це значення зміниться лише на наступному циклі change детектора
     const componentRef = this.vcr.createComponent(BookButtonComponent);
     componentRef.instance.buttonLabel = 'Book new room';
-    this.headerChildren.last.title = 'Hotel inventory 2';
+    this.headerChildren.last.title = 'Updating every day';
     this.cdr.detectChanges();
   }
 
@@ -131,6 +137,11 @@ export class RoomsComponent
     // this.header.title = 'Hotel inventory'; //- тут це значення зміниться лише на наступному циклі change детектора
   }
 
+  ngAfterContentInit(): void {
+    console.log('ngAfterContentInit in RoomsComponent fired');
+    this.employee.empName = 'Rick';
+    this.empName = this.employee.employeeName;;
+  }
   selectRoom(room: RoomList) {
     this.selectedRoom = room;
   }

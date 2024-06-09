@@ -4,16 +4,20 @@
   <p *ngSwitchCase="'User'">Welcome User</p>
   <div *ngSwitchCase="'Admin'">
     <p [ngStyle]="{ color: 'darkgreen' }">Welcome Admin</p>
-    <app-rooms></app-rooms>
+    <app-rooms>
+      <!-- passing ng-content -->
+      <h4>Employee data:</h4>
+      <app-employee></app-employee>
+    </app-rooms>
   </div>
   <p *ngSwitchDefault [ngStyle]="{ color: 'red' }">Not logged in</p>
 </div>
 
+<!-- ng-template using example -->
 <ng-template #countTemplate let-customerCount="count">
   <div>Approximately {{ customerCount }} customers on the page...</div>
 </ng-template>
-<ng-container *ngTemplateOutlet="countTemplate; context: ctx">
-</ng-container>
+<ng-container *ngTemplateOutlet="countTemplate; context: ctx"> </ng-container>
 
 <ng-template
   #t
