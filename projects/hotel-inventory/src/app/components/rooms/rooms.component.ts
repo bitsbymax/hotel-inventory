@@ -25,6 +25,7 @@ import { RoomsListComponent } from '../rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { BookButtonComponent } from '../book-button/book-button.component';
 import { EmployeeComponent } from '../employee/employee.component';
+import { RoomsService } from '../../services/rooms.service';
 
 @Component({
   selector: 'app-rooms',
@@ -38,6 +39,7 @@ import { EmployeeComponent } from '../employee/employee.component';
   ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
+  
 })
 export class RoomsComponent
   implements
@@ -73,54 +75,13 @@ export class RoomsComponent
 
   objectKeys = Object.keys;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private roomsService: RoomsService) {
     console.log('constructor in RoomsComponent fired');
   }
 
   ngOnInit(): void {
     console.log('ngOnInit in RoomsComponent fired');
-    this.roomList = [
-      {
-        roomNumber: 1,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, TV, Wifi,',
-        price: 1000,
-        photos: 'https://picsum.photos/200/300',
-        checkInTime: new Date('2024-01-01'),
-        checkOutTime: new Date('2024-01-01'),
-        rating: 4.8,
-      },
-      {
-        roomNumber: 2,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, TV, Wifi,',
-        price: 500,
-        photos: 'https://picsum.photos/200/300',
-        checkInTime: new Date('2024-01-01'),
-        checkOutTime: new Date('2024-01-01'),
-        rating: 4.757,
-      },
-      {
-        roomNumber: 3,
-        roomType: 'Private Room',
-        amenities: 'Air Conditioner, TV, Wifi,',
-        price: 300,
-        photos: 'https://picsum.photos/200/300',
-        checkInTime: new Date('2024-01-01'),
-        checkOutTime: new Date('2024-01-01'),
-        rating: 4,
-      },
-      {
-        roomNumber: 4,
-        roomType: 'Common Room',
-        amenities: 'Air Conditioner, TV, Wifi,',
-        price: 100,
-        photos: 'https://picsum.photos/200/300',
-        checkInTime: new Date('2024-01-01'),
-        checkOutTime: new Date('2024-01-01'),
-        rating: 3,
-      },
-    ];
+    this.roomList = this.roomsService.getRooms();
     this.header.title = 'Hotel inventory'; // - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
     this.description.nativeElement.innerText =
       'Our goal is to provide best service';
