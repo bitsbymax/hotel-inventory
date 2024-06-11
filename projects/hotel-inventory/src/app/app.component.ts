@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RoomsComponent } from './components/rooms/rooms.component';
 import { CommonModule } from '@angular/common';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { LoggerService } from './services/logger.service';
+import { LocalStorageToken } from './local-storage.token';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RoomsComponent, CommonModule, EmployeeComponent,],
+  imports: [RouterOutlet, RoomsComponent, CommonModule, EmployeeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   hotelName: string = 'Urban Hotel';
   role: string = 'Admin';
 
@@ -20,6 +22,16 @@ export class AppComponent {
 
   data = {
     screen: true,
-    label: 'Mobile'
+    label: 'Mobile',
+  };
+
+  constructor(
+    @Optional() private loggerService: LoggerService,
+    @Inject(LocalStorageToken) private localStorage: Storage
+  ) {}
+
+  ngOnInit(): void {
+    this.loggerService?.log('ngOnInit in AppComponent fired');
+    this.localStorage.setItem('name', 'Urban Hotel');
   }
 }

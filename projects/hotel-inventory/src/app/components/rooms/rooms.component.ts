@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
-  ContentChildren,
   DoCheck,
   ElementRef,
   Input,
@@ -15,6 +14,7 @@ import {
   OnInit,
   QueryList,
   SimpleChanges,
+  SkipSelf,
   ViewChild,
   ViewChildren,
   ViewContainerRef,
@@ -75,7 +75,7 @@ export class RoomsComponent
 
   objectKeys = Object.keys;
 
-  constructor(private cdr: ChangeDetectorRef, private roomsService: RoomsService) {
+  constructor(private cdr: ChangeDetectorRef, @SkipSelf() private roomsService: RoomsService) {
     console.log('constructor in RoomsComponent fired');
   }
 
