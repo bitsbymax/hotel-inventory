@@ -1,4 +1,8 @@
 {
+  "eslint.workingDirectories": [
+    "client",
+    "server"
+  ],
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#14da90",
     "activityBar.background": "#14da90",
@@ -21,5 +25,5 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.remoteColor": "#10ab71",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "./server/node_modules/typescript/lib",
 }

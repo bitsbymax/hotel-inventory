@@ -10,20 +10,20 @@
           "style": "scss"
         }
       },
-      "root": "projects/hotel-inventory",
-      "sourceRoot": "projects/hotel-inventory/src",
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/hotel-inventory",
-            "index": "projects/hotel-inventory/src/index.html",
-            "browser": "projects/hotel-inventory/src/main.ts",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "projects/hotel-inventory/tsconfig.app.json",
+            "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -32,7 +32,7 @@
               }
             ],
             "styles": [
-              "projects/hotel-inventory/src/styles.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -82,7 +82,7 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "projects/hotel-inventory/tsconfig.spec.json",
+            "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -91,7 +91,7 @@
               }
             ],
             "styles": [
-              "projects/hotel-inventory/src/styles.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           }
