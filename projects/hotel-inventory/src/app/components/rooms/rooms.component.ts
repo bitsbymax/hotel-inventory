@@ -26,6 +26,7 @@ import { HeaderComponent } from '../header/header.component';
 import { BookButtonComponent } from '../book-button/book-button.component';
 import { EmployeeComponent } from '../employee/employee.component';
 import { RoomsService } from '../../services/rooms.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-rooms',
