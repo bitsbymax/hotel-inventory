@@ -82,7 +82,9 @@ export class RoomsComponent
 
   ngOnInit(): void {
     console.log('ngOnInit in RoomsComponent fired');
-    this.roomList = this.roomsService.getRooms();
+    this.roomsService.getRooms().subscribe(rooms => {
+      this.roomList = rooms;
+    });
     this.header.title = 'Hotel inventory'; // - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
     this.description.nativeElement.innerText =
       'Our goal is to provide best service';
@@ -131,7 +133,7 @@ export class RoomsComponent
 
   addRoom() {
     const room: RoomList = {
-      roomNumber: 5,
+      roomNumber: "5",
       roomType: 'Common Room',
       amenities: 'Air Conditioner, TV, Wifi,',
       price: 320,
