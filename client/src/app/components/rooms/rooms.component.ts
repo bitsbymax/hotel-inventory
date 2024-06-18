@@ -78,7 +78,7 @@ export class RoomsComponent
 
   observable = new Observable<number>((observer) => {
     observer.next(1);
-    observer.next(2);
+    observer.error('Error');
     observer.complete();
   });
 
@@ -97,7 +97,7 @@ export class RoomsComponent
     this.header.title = 'Hotel inventory'; // - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
     this.description.nativeElement.innerText =
       'Our goal is to provide best service';
-
+    //observables
     this.observable.subscribe({
       next: (value) => console.log(value),
       error: (error) => console.log(error),
@@ -105,7 +105,7 @@ export class RoomsComponent
     });
 
     this.observable.subscribe((data) => console.log(data));
-
+    //
     this.roomsService.getPhotos().subscribe((event) => {
       switch (event.type) {
         case HttpEventType.Sent: {
