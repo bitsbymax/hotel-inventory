@@ -7,7 +7,7 @@
 <p>Number of rooms:</p>
 <div
   [ngStyle]="{
-    color: rooms.availableRooms ? 'lightgreen' : 'red',
+    color: roomsInfo.availableRooms ? 'lightgreen' : 'red',
     fontSize: '20px',
     fontWeight: 'bold'
   }"
@@ -15,7 +15,7 @@
 ></div>
 
 <p>Available rooms</p>
-{{ rooms.availableRooms ?? "No rooms available" }}
+{{ roomsInfo.availableRooms ?? "No rooms available" }}
 
 @if (objectKeys(selectedRoom).length > 0) {
 <div>{{ selectedRoom | json }}</div>
@@ -35,12 +35,16 @@
 
 <p>Contact {{ empName }}</p>
 
+<h1>{{ getError$ | async }}</h1>
+
+@if (rooms$ | async; as rooms ) {
 <app-rooms-list
   *ngIf="!hideRooms"
-  [rooms]="roomList"
+  [rooms]="rooms"
   [title]="title"
   (selectedRoom)="selectRoom($event)"
 />
+}
 
 <button (click)="toggle()">
   {{ !hideRooms ? "Hide rooms" : "Show rooms" }}

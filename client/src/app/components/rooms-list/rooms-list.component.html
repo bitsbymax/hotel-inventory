@@ -13,7 +13,7 @@
       <th>Rating</th>
       <th>Select room</th>
     </tr>
-    @for (room of rooms | slice : 0 : rooms.length; track room.roomNumber; let i
+    @for (room of rooms | slice : 0 : rooms!.length; track room.roomNumber; let i
     = $index, even = $even, odd = $odd) {
     <tr [ngClass]="even ? 'even' : 'odd'">
       <ng-container *ngTemplateOutlet="td; context: { i }"></ng-container>

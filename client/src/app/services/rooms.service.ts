@@ -4,6 +4,7 @@ import { APP_SERVICE_CONFIG } from '../config/config.service';
 import { AppConfigInterface } from '../config/config.interface';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Photo } from '../interfaces/photo.interface';
+import { Observable, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,16 @@ import { Photo } from '../interfaces/photo.interface';
 export class RoomsService {
   rooms: RoomList[] = [];
 
+  getRooms$!: Observable<RoomList[]>;
+
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfigInterface,
     private http: HttpClient
   ) {
     console.log('RoomsService initialized');
+    this.getRooms$ = this.http.get<RoomList[]>('/api/rooms').pipe(
+      shareReplay(1) //цей оператор дає можливість закешувати результати запитів, тобто в разі якщо такий запит було зроблено в іншому компоненті, то буде повернуто збережені дані з кешу.
+    )
   }
 
   getRooms() {

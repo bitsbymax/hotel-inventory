@@ -26,7 +26,7 @@ import { HeaderComponent } from '../header/header.component';
 import { BookButtonComponent } from '../book-button/book-button.component';
 import { EmployeeComponent } from '../employee/employee.component';
 import { RoomsService } from '../../services/rooms.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, Subject, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -64,7 +64,7 @@ export class RoomsComponent
 
   numberOfRooms: number = 10;
   hideRooms: boolean = false;
-  rooms: Room = {
+  roomsInfo: Room = {
     totalRooms: 10,
     availableRooms: 8,
     bookedRooms: 0,
@@ -75,10 +75,22 @@ export class RoomsComponent
   empName: string = '';
 
   objectKeys = Object.keys;
+  //---------------------------
+  subscription!: Subscription;
+  error$ = new Subject<string>();
+  rooms$ = this.roomsService.getRooms$.pipe(
+    catchError((error) => {
+      console.log(error);
+      this.error$.next(error.message);
+      return of([]);
+    })
+  );
+  getError$ = this.error$.asObservable();
 
+  //creating an Observable manually
   observable = new Observable<number>((observer) => {
     observer.next(1);
-    observer.error('Error');
+    // observer.error('Error');
     observer.complete();
   });
 
@@ -91,13 +103,15 @@ export class RoomsComponent
 
   ngOnInit(): void {
     console.log('ngOnInit in RoomsComponent fired');
-    this.roomsService.getRooms().subscribe((rooms) => {
-      this.roomList = rooms;
-    });
     this.header.title = 'Hotel inventory'; // - ми можемо змінити значення властивості title компонента HeaderComponent з середини RoomsComponent в ngOnInit лише якщо вказано { static: true }.
     this.description.nativeElement.innerText =
       'Our goal is to provide best service';
-    //observables
+
+    // this.subscription = this.roomsService.getRooms$.subscribe((rooms) => {
+    //   this.roomList = rooms;
+    // });
+
+    //subscribing to observable
     this.observable.subscribe({
       next: (value) => console.log(value),
       error: (error) => console.log(error),
@@ -121,11 +135,7 @@ export class RoomsComponent
           break;
         }
         case HttpEventType.Response: {
-          console.log(`Download completed: ${event.body}`);
-          break;
-        }
-        case HttpEventType.Response: {
-          console.log(`Download completed: ${event.body}`);
+          console.log(`Download completed `);
           break;
         }
       }
@@ -168,6 +178,9 @@ export class RoomsComponent
 
   ngOnDestroy(): void {
     console.log('ngOnDestroy in RoomsComponent fired');
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
   selectRoom(room: RoomList) {
     this.selectedRoom = room;

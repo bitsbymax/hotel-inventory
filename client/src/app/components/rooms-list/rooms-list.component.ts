@@ -36,7 +36,7 @@ export class RoomsListComponent
     AfterContentChecked,
     OnDestroy
 {
-  @Input() rooms: RoomList[] = [];
+  @Input() rooms: RoomList[] | null = [];
   @Input() title: string = '';
   @Output() selectedRoom = new EventEmitter<RoomList>();
 
