@@ -14,8 +14,8 @@ export class RoomsService {
       price: 500,
       photos:
         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      checkinTime: new Date('11-Nov-2021'),
-      checkoutTime: new Date('12-Nov-2021'),
+      checkInTime: new Date('2024-01-01'),
+      checkOutTime: new Date('2024-01-01'),
       rating: 4.5,
     },
     {
@@ -25,8 +25,8 @@ export class RoomsService {
       price: 1000,
       photos:
         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      checkinTime: new Date('11-Nov-2021'),
-      checkoutTime: new Date('12-Nov-2021'),
+      checkInTime: new Date('2024-01-01'),
+      checkOutTime: new Date('2024-01-01'),
       rating: 3.45654,
     },
     {
@@ -36,8 +36,8 @@ export class RoomsService {
       price: 15000,
       photos:
         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-      checkinTime: new Date('11-Nov-2021'),
-      checkoutTime: new Date('12-Nov-2021'),
+      checkInTime: new Date('2024-01-01'),
+      checkOutTime: new Date('2024-01-01'),
       rating: 2.6,
     },
   ];

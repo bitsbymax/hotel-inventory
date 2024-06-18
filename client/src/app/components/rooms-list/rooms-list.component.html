@@ -21,7 +21,7 @@
       <td>{{ room.roomType }}</td>
       <td>{{ room.amenities | lowercase }}</td>
       <td>{{ room.price | currency }}</td>
-      <td>{{ room.photos }}</td>
+      <td [ngStyle]="{ maxWidth: '100px' }">{{ room.photos }}</td>
       <td>{{ room.checkInTime | date : "longDate" }}</td>
       <td>{{ room.checkOutTime | date : "longDate" }}</td>
       <td>{{ room.rating | number : "1.1-1" : "en-us" }}</td>

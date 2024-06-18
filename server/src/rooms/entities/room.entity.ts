@@ -4,7 +4,7 @@ export class Room {
   amenities: string;
   price: number;
   photos: string;
-  checkinTime: Date;
-  checkoutTime: Date;
+  checkInTime: Date;
+  checkOutTime: Date;
   rating: number;
 }
