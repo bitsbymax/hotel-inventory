@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { RoomList } from '../interfaces/room.interface';
 import { APP_SERVICE_CONFIG } from '../config/config.service';
 import { AppConfigInterface } from '../config/config.interface';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Photo } from '../interfaces/photo.interface';
 import { Observable, shareReplay } from 'rxjs';
 
@@ -21,11 +21,10 @@ export class RoomsService {
     console.log('RoomsService initialized');
     this.getRooms$ = this.http.get<RoomList[]>('/api/rooms').pipe(
       shareReplay(1) //цей оператор дає можливість закешувати результати запитів, тобто в разі якщо такий запит було зроблено в іншому компоненті, то буде повернуто збережені дані з кешу.
-    )
+    );
   }
 
   getRooms() {
-    console.log('getRooms called');
     return this.http.get<RoomList[]>('/api/rooms');
   }
 

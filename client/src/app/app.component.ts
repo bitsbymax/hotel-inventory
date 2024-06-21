@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { LoggerService } from './services/logger.service';
 import { LocalStorageToken } from './local-storage.token';
+import { InitService } from './services/init.service';
 
 @Component({
   selector: 'app-root',
@@ -25,13 +26,17 @@ export class AppComponent implements OnInit {
     label: 'Mobile',
   };
 
+  config: any;
+
   constructor(
     @Optional() private loggerService: LoggerService,
-    @Inject(LocalStorageToken) private localStorage: Storage
+    @Inject(LocalStorageToken) private localStorage: Storage,
+    private initService: InitService
   ) {}
 
   ngOnInit(): void {
     this.loggerService?.log('ngOnInit in AppComponent fired');
     this.localStorage.setItem('name', 'Urban Hotel');
+    this.config = this.initService.config;
   }
 }

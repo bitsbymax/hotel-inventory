@@ -1,5 +1,7 @@
 <h3>App component</h3>
 
+<h4>Config from InitService: {{ config | json }}</h4>
+
 <div [ngSwitch]="role" [ngStyle]="{ backgroundColor: 'lightblue' }">
   <p *ngSwitchCase="'User'">Welcome User</p>
   <div *ngSwitchCase="'Admin'">

@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-
 import { Rooms } from './rooms';
-
 @Injectable()
 export class AppService {
   getRoomsList(): Rooms[] {

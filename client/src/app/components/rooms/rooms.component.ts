@@ -26,7 +26,7 @@ import { HeaderComponent } from '../header/header.component';
 import { BookButtonComponent } from '../book-button/book-button.component';
 import { EmployeeComponent } from '../employee/employee.component';
 import { RoomsService } from '../../services/rooms.service';
-import { catchError, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, map, Observable, of, Subject, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -62,11 +62,10 @@ export class RoomsComponent
 
   @ContentChild(EmployeeComponent) employee!: EmployeeComponent;
 
-  numberOfRooms: number = 10;
   hideRooms: boolean = false;
   roomsInfo: Room = {
-    totalRooms: 10,
-    availableRooms: 8,
+    totalRooms: 3,
+    availableRooms: 2,
     bookedRooms: 0,
   };
   roomList: RoomList[] = [];
@@ -86,6 +85,7 @@ export class RoomsComponent
     })
   );
   getError$ = this.error$.asObservable();
+  roomsCount$ = this.roomsService.getRooms$.pipe(map((rooms) => rooms.length));
 
   //creating an Observable manually
   observable = new Observable<number>((observer) => {
