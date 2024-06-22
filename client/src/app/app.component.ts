@@ -7,7 +7,7 @@ import { LoggerService } from './services/logger.service';
 import { LocalStorageToken } from './local-storage.token';
 import { InitService } from './services/init.service';
 
-@Component({
+@Component({ 
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RoomsComponent, CommonModule, EmployeeComponent],
