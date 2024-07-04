@@ -33,3 +33,12 @@
 >
   <div>default screen: {{ defaultScreen }} - label: {{ label }}</div>
 </ng-template>
+
+<form class="form" [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Full name</mat-label>
+    <input matInput formControlName="name" placeholder="Full name" />
+  </mat-form-field>
+  <app-reusable-form-group controlKey="emailGroup"></app-reusable-form-group>
+  <button mat-raised-button color="primary" (click)="save()">Save</button>
+</form>

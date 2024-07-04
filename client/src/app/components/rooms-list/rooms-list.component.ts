@@ -16,11 +16,12 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { RoomList } from '../../interfaces/room.interface';
+import { MatTableModule } from "@angular/material/table";
 
 @Component({
   selector: 'app-rooms-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatTableModule],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,6 +41,7 @@ export class RoomsListComponent
   @Input() title: string = '';
   @Output() selectedRoom = new EventEmitter<RoomList>();
 
+  dataSource = this.rooms;
   constructor() {
     console.log('constructor in RoomsListComponent fired');
   }
