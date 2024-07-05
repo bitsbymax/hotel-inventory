@@ -16,16 +16,16 @@ import { MatInputModule } from '@angular/material/input';
   ]
 })
 export class ReusableFormGroupComponent implements OnInit, OnDestroy {
-  public parentContainer = inject(ControlContainer);
+  parentContainer = inject(ControlContainer);
 
-  public get parentFormGroup(): FormGroup {
+  get parentFormGroup(): FormGroup {
     return this.parentContainer.control as FormGroup;
   }
-  @Input() public controlKey = '';
+  @Input() controlKey = '';
   constructor(private fb: FormBuilder) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.parentFormGroup.addControl(this.controlKey,
       new FormGroup({
         email: this.fb.control('', [Validators.email]),
@@ -33,7 +33,7 @@ export class ReusableFormGroupComponent implements OnInit, OnDestroy {
       }));
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.parentFormGroup.removeControl(this.controlKey);
   }
 }
