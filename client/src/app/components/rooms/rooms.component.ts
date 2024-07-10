@@ -26,7 +26,7 @@ import { HeaderComponent } from '../header/header.component';
 import { BookButtonComponent } from '../book-button/book-button.component';
 import { EmployeeComponent } from '../employee/employee.component';
 import { RoomsService } from '../../services/rooms.service';
-import { catchError, map, Observable, of, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, map, Observable, of, Subject, Subscription, tap } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -72,6 +72,7 @@ export class RoomsComponent
   selectedRoom = {} as RoomList;
   title = 'Room List';
   empName: string = '';
+  error: boolean = false;
 
   objectKeys = Object.keys;
   //---------------------------
@@ -93,7 +94,16 @@ export class RoomsComponent
     // observer.error('Error');
     observer.complete();
   });
-
+  //---------------------------
+  
+  users$ = this.roomsService.getUsers$.pipe(
+    catchError(err => {
+    this.error = true;
+    return EMPTY;
+    }));
+  
+  selectedUser$ = this.roomsService.selectedUserData$;
+  
   constructor(
     private cdr: ChangeDetectorRef,
     @SkipSelf() private roomsService: RoomsService
@@ -230,5 +240,9 @@ export class RoomsComponent
   toggle() {
     this.hideRooms = !this.hideRooms;
     this.title = 'Rooms List';
+  }
+
+  selectUser(id: number) {
+    this.roomsService.onSelectedUser(id);
   }
 }

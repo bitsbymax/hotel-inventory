@@ -51,3 +51,14 @@
 </button>
 
 <ng-template #bookRoom></ng-template>
+
+<h4>People currently on the page:</h4>
+@if (users$ | async; as users) {
+<ul>
+  @for (user of users | slice : 0 : 10; track user.id) {
+  <li (click)="selectUser(user.id)">{{ user.username }}</li>
+  }
+</ul>
+}
+
+<h5 *ngIf="selectedUser$">Selected user: {{ selectedUser$ | async | json }}</h5>

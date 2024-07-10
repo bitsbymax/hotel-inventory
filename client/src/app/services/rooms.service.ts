@@ -4,7 +4,45 @@ import { APP_SERVICE_CONFIG } from '../config/config.service';
 import { AppConfigInterface } from '../config/config.interface';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Photo } from '../interfaces/photo.interface';
-import { Observable, shareReplay } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  combineLatest,
+  map,
+  Observable,
+  shareReplay,
+  throwError,
+} from 'rxjs';
+
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: Address;
+  phone: string;
+  website: string;
+  company: Company;
+}
+
+interface Address {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+  geo: Geo;
+}
+
+interface Geo {
+  lat: string;
+  lng: string;
+}
+
+interface Company {
+  name: string;
+  catchPhrase: string;
+  bs: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +51,38 @@ export class RoomsService {
   rooms: RoomList[] = [];
 
   getRooms$!: Observable<RoomList[]>;
+  //<<<<---------------------------------------------------->>
+  getUsers$ = this.http
+    .get<User[]>('https://jsonplaceholder.typicode.com/users')
+    .pipe(
+      map((users) =>
+        users.map((user) => ({
+          ...user,
+          username: `${user.username}@${user.website}`,
+        }))
+      ),
+      catchError((err) => {
+        console.error(err);
+        return throwError(() => new Error(err));
+      }),
+      shareReplay(1)
+    );
+
+  private selectedUserSubject = new BehaviorSubject<number | null>(null); //створюємо Subject зі значенням null
+  selectedUserAction$ = this.selectedUserSubject.asObservable(); //створюємо стрім, джерелом даних якого є наш Subject
+  onSelectedUser(id: number) {
+    this.selectedUserSubject.next(id); //додаємо в стрім нові дані
+  }
+
+  selectedUserData$: Observable<User> = combineLatest([
+    this.getUsers$,
+    this.selectedUserAction$,
+  ]).pipe(
+    map(([allUsers, selectedUser]) => {
+      return allUsers.find((u) => u.id === selectedUser) as User;
+    })
+  );
+  //<<<<---------------------------------------------------->>
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfigInterface,
