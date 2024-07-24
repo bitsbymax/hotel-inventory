@@ -2,8 +2,8 @@ export class BookingDTO {
   bookingId: string;
   roomId: string;
   guestEmail: string;
-  checkinDate: Date;
-  checkoutDate: Date;
+  checkInDate: Date;
+  checkOutDate: Date;
   bookingStatus: string;
   bookingAmount: number;
   bookingDate: Date;
@@ -15,5 +15,5 @@ export class BookingDTO {
   guestCountry: string;
   guestZipCode: string;
   guestCount: number;
-  guestList: []
+  guestList: [];
 }
