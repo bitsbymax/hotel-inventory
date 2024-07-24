@@ -4,8 +4,7 @@ import { v4 } from 'uuid';
 
 @Injectable()
 export class BookingService {
-
-    bookings : BookingDTO[] = [];
+  bookings: BookingDTO[] = [];
 
   create(booking: BookingDTO) {
     console.log(BookingDTO);
@@ -15,7 +14,7 @@ export class BookingService {
     return this.bookings;
   }
 
-  getAll() { 
-      return this.bookings;
+  getAll() {
+    return this.bookings;
   }
 }
